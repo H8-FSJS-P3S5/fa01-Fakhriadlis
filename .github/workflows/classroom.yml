@@ -1,0 +1,70 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: findDuplicate.test.js
+      id: findduplicate-test-js
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: findDuplicate.test.js
+        setup-command: npm install
+        command: npm test 1-findDuplicate.test.js
+        timeout: 10
+        max-score: 20
+    - name: secondUniqueInteger.test.js
+      id: seconduniqueinteger-test-js
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: secondUniqueInteger.test.js
+        setup-command: npm install
+        command: npm test 2-secondUniqueInteger.test.js
+        timeout: 10
+        max-score: 25
+    - name: numberCruncher.test.js
+      id: numbercruncher-test-js
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: numberCruncher.test.js
+        setup-command: npm install
+        command: npm test 3-numberCruncher.test.js
+        timeout: 10
+        max-score: 25
+    - name: npm test 4-bloodTypeMatcher.test.js
+      id: npm-test-4-bloodtypematcher-test-js
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: npm test 4-bloodTypeMatcher.test.js
+        setup-command: npm install
+        command: npm test 4-bloodTypeMatcher.test.js
+        timeout: 10
+        max-score: 15
+    - name: npm test 5-hospitalRoom.test.js
+      id: npm-test-5-hospitalroom-test-js
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: npm test 5-hospitalRoom.test.js
+        setup-command: npm install
+        command: npm test 5-hospitalRoom.test.js
+        timeout: 10
+        max-score: 15
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        FINDDUPLICATE-TEST-JS_RESULTS: "${{steps.findduplicate-test-js.outputs.result}}"
+        SECONDUNIQUEINTEGER-TEST-JS_RESULTS: "${{steps.seconduniqueinteger-test-js.outputs.result}}"
+        NUMBERCRUNCHER-TEST-JS_RESULTS: "${{steps.numbercruncher-test-js.outputs.result}}"
+        NPM-TEST-4-BLOODTYPEMATCHER-TEST-JS_RESULTS: "${{steps.npm-test-4-bloodtypematcher-test-js.outputs.result}}"
+        NPM-TEST-5-HOSPITALROOM-TEST-JS_RESULTS: "${{steps.npm-test-5-hospitalroom-test-js.outputs.result}}"
+      with:
+        runners: findduplicate-test-js,seconduniqueinteger-test-js,numbercruncher-test-js,npm-test-4-bloodtypematcher-test-js,npm-test-5-hospitalroom-test-js

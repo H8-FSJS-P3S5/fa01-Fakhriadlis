@@ -1,0 +1,23 @@
+{
+  "name": "fa01",
+  "version": "1.0.0",
+  "description": "## Ringkasan",
+  "main": "1-findDuplicate.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/H8-FSJS-P3S5/FA01.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/H8-FSJS-P3S5/FA01/issues"
+  },
+  "homepage": "https://github.com/H8-FSJS-P3S5/FA01#readme",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}
